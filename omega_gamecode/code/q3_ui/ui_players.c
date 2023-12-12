@@ -524,50 +524,6 @@ static void UI_SwingAngles( float destination, float swingTolerance, float clamp
 
 
 /*
-======================
-UI_MovedirAdjustment
-======================
-*/
-static float UI_MovedirAdjustment( playerInfo_t *pi ) {
-	vec3_t		relativeAngles;
-	vec3_t		moveVector;
-
-	VectorSubtract( pi->viewAngles, pi->moveAngles, relativeAngles );
-	AngleVectors( relativeAngles, moveVector, NULL, NULL );
-	if ( Q_fabs( moveVector[0] ) < 0.01 ) {
-		moveVector[0] = 0.0;
-	}
-	if ( Q_fabs( moveVector[1] ) < 0.01 ) {
-		moveVector[1] = 0.0;
-	}
-
-	if ( moveVector[1] == 0 && moveVector[0] > 0 ) {
-		return 0;
-	}
-	if ( moveVector[1] < 0 && moveVector[0] > 0 ) {
-		return 22;
-	}
-	if ( moveVector[1] < 0 && moveVector[0] == 0 ) {
-		return 45;
-	}
-	if ( moveVector[1] < 0 && moveVector[0] < 0 ) {
-		return -22;
-	}
-	if ( moveVector[1] == 0 && moveVector[0] < 0 ) {
-		return 0;
-	}
-	if ( moveVector[1] > 0 && moveVector[0] < 0 ) {
-		return 22;
-	}
-	if ( moveVector[1] > 0 && moveVector[0] == 0 ) {
-		return  -45;
-	}
-
-	return -22;
-}
-
-
-/*
 ===============
 UI_PlayerAngles
 ===============
@@ -575,7 +531,6 @@ UI_PlayerAngles
 static void UI_PlayerAngles( playerInfo_t *pi, vec3_t legs[3], vec3_t torso[3], vec3_t head[3], qboolean rotate ) {
 	vec3_t		legsAngles, torsoAngles, headAngles;
 	float		dest;
-	float		adjust;
 
 	VectorCopy( pi->viewAngles, headAngles );
 
@@ -600,7 +555,6 @@ static void UI_PlayerAngles( playerInfo_t *pi, vec3_t legs[3], vec3_t torso[3], 
 	}
 
 	// adjust legs for movement dir
-	adjust = UI_MovedirAdjustment( pi );
 	legsAngles[YAW] = headAngles[YAW];
 	torsoAngles[YAW] = headAngles[YAW];
 

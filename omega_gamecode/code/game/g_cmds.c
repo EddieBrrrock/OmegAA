@@ -1242,7 +1242,7 @@ sends the readymask to the player with clientnum, if clientnum = -1 its send to 
 void SendReadyMask( int clientnum ) {
 	char		entry[16];
 	int			i;
-	int			ready, notReady, playerCount;
+	int			ready  __attribute__ ((unused)), notReady  __attribute__ ((unused)), playerCount  __attribute__ ((unused));
 	int			readyMask;
 	gclient_t	*cl;
 

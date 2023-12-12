@@ -363,7 +363,6 @@ UI_VoteMapMenu_Update
 void UI_VoteMapMenu_Update( void ) {
 	int		i;
 	int		top;
-        const char	*info;
 	char		mapname[MAX_MAPNAME_LENGTH];
 	static char	picname[MAX_MAPSPERPAGE][64];
 

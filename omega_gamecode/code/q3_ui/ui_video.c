@@ -1049,17 +1049,10 @@ void GraphicsOptions_MenuInit( void )
 		"Low",
 		"Medium",
 		"High",
+		"Very High",
 		NULL
 	};
 
-	static const char *geometry_names[] =
-	{
-		"Low",
-		"Medium",
-		"High",
-		"Very High Quality",
-		NULL
-	};
 	static const char *enabled_names[] =
 	{
 		"Off",
@@ -1246,7 +1239,7 @@ void GraphicsOptions_MenuInit( void )
 	s_graphicsoptions.geometry.generic.flags = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
 	s_graphicsoptions.geometry.generic.x	 = 400;
 	s_graphicsoptions.geometry.generic.y	 = y;
-	s_graphicsoptions.geometry.itemnames     = geometry_names;
+	s_graphicsoptions.geometry.itemnames     = quality_names;
 	y += BIGCHAR_HEIGHT+2;
 
 	// references/modifies "r_picmip"

@@ -397,7 +397,6 @@ void ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, gentity_t *ent ) {
 	float		r, u;
 	vec3_t		end;
 	vec3_t		forward, right, up;
-	int			oldScore;
 	qboolean	hitClient = qfalse;
 
 //unlagged - attack prediction #2
