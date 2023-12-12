@@ -2421,7 +2421,7 @@ void SnapVectorTowards( vec3_t v, vec3_t to ) {
 
 static qboolean do_vid_restart = qfalse;
 
-void CG_FairCvars() {
+void CG_FairCvars( void ) {
     qboolean vid_restart_required = qfalse;
     char rendererinfos[128];
 

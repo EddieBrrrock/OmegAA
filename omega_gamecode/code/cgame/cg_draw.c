@@ -1142,7 +1142,7 @@ static float CG_DrawEliminationTimer( float y ) {
 	int			msec;
 	vec4_t			color;
 	const char	*st;
-	float scale;
+	float scale __attribute__ ((unused));
 	int cw;
 	int rst;
 
@@ -2107,7 +2107,7 @@ CG_DrawReward
 */
 static void CG_DrawReward( void ) { 
 	float	*color;
-	int		i, count;
+	int		i;
 	float	x, y;
 	char	buf[32];
 
@@ -3281,7 +3281,7 @@ static void CG_DrawWarmup( void ) {
 	int			w;
 	int			sec;
 	int			i;
-	float scale;
+	float scale __attribute__ ((unused));
 	clientInfo_t	*ci1, *ci2;
 	int			cw;
 	const char	*s;

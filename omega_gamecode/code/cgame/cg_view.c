@@ -867,8 +867,6 @@ CG_SpecZooming
 =====================
 */
 void CG_SpecZooming(void) {
-	qboolean oldzoomed;
-
 	if ( cg.specZoomed ) {
 		if ( !cg_showSpecZoom.integer || cg.snap->ps.persistant[PERS_TEAM] == TEAM_SPECTATOR || !( cg.snap->ps.pm_flags & PMF_FOLLOW ) ) {
 			// reset zoom if we are a free spectator;

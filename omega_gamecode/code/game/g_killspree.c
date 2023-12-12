@@ -468,10 +468,8 @@ void G_checkForMultiKill( gentity_t *ent ) {
     int     multiKillCount;
     char    multiKillString[ 2 ];
     gclient_t   *client;
-    int         clientNum;
     
     client = ent->client;
-	clientNum = client - level.clients;
     
     //Let's grab the multikill count for the player first
     multiKillCount = ent->client->pers.multiKillCount;

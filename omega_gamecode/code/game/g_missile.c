@@ -32,7 +32,6 @@ G_TeleportMissile
 void G_TeleportMissile( gentity_t *ent, trace_t *trace, gentity_t *portal ) {
 	gentity_t	*dest;
 	vec_t		length_norm, length_neg_norm;
-	vec3_t		newDirection;
 	vec3_t		portalInAngles;
 	vec3_t		portalInVec;
 	vec3_t		rotationAngles;
@@ -390,7 +389,7 @@ static void ProximityMine_Player( gentity_t *mine, gentity_t *player ) {
  *=================
  */
 
-void ProximityMine_RemoveAll() {
+void ProximityMine_RemoveAll( void ) {
     gentity_t	*mine;
     
     mine = NULL;

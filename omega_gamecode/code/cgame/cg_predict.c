@@ -590,7 +590,7 @@ void CG_PredictPlayerState( void ) {
 	usercmd_t	latestCmd;
 //unlagged - optimized prediction
 	int stateIndex = 0, predictCmd = 0; //Sago: added initializing
-	int numPredicted = 0, numPlayedBack = 0; // debug code
+	//int numPredicted = 0, numPlayedBack = 0; // debug code
 //unlagged - optimized prediction
 
 	cg.hyperspace = qfalse;	// will be set if touching a trigger_teleport
@@ -851,7 +851,7 @@ void CG_PredictPlayerState( void ) {
 				// run the Pmove
 				Pmove (&cg_pmove);
 
-				numPredicted++; // debug code
+				//numPredicted++; // debug code
 
 				// record the last predicted command
 				cg.lastPredictedCommand = cmdNum;
@@ -866,7 +866,7 @@ void CG_PredictPlayerState( void ) {
 				}
 			}
 			else {
-				numPlayedBack++; // debug code
+				//numPlayedBack++; // debug code
 
 				if ( cg_showmiss.integer && 
 						cg.savedPmoveStates[stateIndex].commandTime != cg_pmove.cmd.serverTime) {
@@ -885,7 +885,7 @@ void CG_PredictPlayerState( void ) {
 			// run the Pmove
 			Pmove (&cg_pmove);
 
-			numPredicted++; // debug code
+			//numPredicted++; // debug code
 		}
 //unlagged - optimized prediction
 

@@ -408,7 +408,6 @@ static void CG_LeiSmokeTrail( centity_t *ent, const weaponInfo_t *wi ) {
 	vec3_t	up;
 	localEntity_t	*smoke;
 	int		therando;
-	int		theradio;
 
 	if ( cg_noProjectileTrail.integer ) {
 		return;
@@ -449,7 +448,6 @@ static void CG_LeiSmokeTrail( centity_t *ent, const weaponInfo_t *wi ) {
 		BG_EvaluateTrajectory( &es->pos, t, lastPos );
 		therando = crandom() * 4;
 		
-		theradio =  wi->trailRadius * (rand() * 0.7); // what is this doing here
 	if (therando == 3)		smoke = CG_SmokePuff( lastPos, up, 27, 1, 1, 1, 0.9f, wi->wiTrailTime,  t, 0, 0,  cgs.media.lsmkShader1 );
 	else if (therando == 1)		smoke = CG_SmokePuff( lastPos, up, 27, 1, 1, 1, 0.9f, wi->wiTrailTime,  t, 0, 0,  cgs.media.lsmkShader2 );
 	else	if (therando == 2)	smoke = CG_SmokePuff( lastPos, up, 27, 1, 1, 1, 0.9f, wi->wiTrailTime,  t, 0, 0,  cgs.media.lsmkShader3 );
@@ -467,7 +465,6 @@ static void CG_LeiPlasmaTrail( centity_t *ent, const weaponInfo_t *wi ) {
 	vec3_t	origin, lastPos;
 	int		t;
 	int		startTime, contents;
-	int		lastContents;
 	entityState_t	*es;
 	vec3_t	up;
 	localEntity_t	*smoke;
@@ -496,7 +493,6 @@ static void CG_LeiPlasmaTrail( centity_t *ent, const weaponInfo_t *wi ) {
 	}
 
 	BG_EvaluateTrajectory( &es->pos, ent->trailTime, lastPos );
-	lastContents = CG_PointContents( lastPos, -1 );
 
 	ent->trailTime = cg.time;
 
@@ -597,7 +593,6 @@ static void CG_OldPlasmaTrail( centity_t *cent, const weaponInfo_t *wi ) {
 	vec3_t			velocity, xvelocity, origin;
 	vec3_t			offset, xoffset;
 	vec3_t			v[3];
-	int				t, startTime, step;
 
 	float	waterScale = 1.0f;
 
@@ -605,11 +600,7 @@ static void CG_OldPlasmaTrail( centity_t *cent, const weaponInfo_t *wi ) {
 		return;
 	}
 
-	step = 50;
-
 	es = &cent->currentState;
-	startTime = cent->trailTime;
-	t = step * ( (startTime + step) / step );
 
 	BG_EvaluateTrajectory( &es->pos, cg.time, origin );
 
@@ -1485,7 +1476,7 @@ void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent
 			f = (float)cg.predictedPlayerState.weaponTime / 1500;
 			gun.shaderRGBA[0] = ci->color1[0] * 51;
 			gun.shaderRGBA[1] = ci->color1[1] * 51;
-			gun.shaderRGBA[2] = ci->color1[2] * 51;
+			gun.shaderRGBA[2] = ci->color1[2] * 51 * ( 1.0 - f );
 		} else {
 			gun.shaderRGBA[0] = ci->color1[0] * 255;
 			gun.shaderRGBA[1] = ci->color1[1] * 255;

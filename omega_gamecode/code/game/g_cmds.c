@@ -331,7 +331,7 @@ void AttackingTeamMessage( gentity_t *ent ) {
  
  */
 
-void ObeliskHealthMessage() {
+void ObeliskHealthMessage( void ) {
     if(level.MustSendObeliskHealth) {
         trap_SendServerCommand( -1, va("oh %i %i",level.healthRedObelisk,level.healthBlueObelisk) );
         level.MustSendObeliskHealth = qfalse;
@@ -1508,7 +1508,7 @@ static void G_VoiceTo( gentity_t *ent, gentity_t *other, int mode, const char *i
 		return;
 	}
 	// no chatting to players in tournements
-	if ( (g_gametype.integer == GT_TOURNAMENT )) {
+	if ( g_gametype.integer == GT_TOURNAMENT ) {
 		return;
 	}
 

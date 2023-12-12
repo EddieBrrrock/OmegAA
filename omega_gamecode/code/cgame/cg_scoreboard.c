@@ -90,7 +90,6 @@ static void CG_DrawClientScore( int y, score_t *score, float *color, float fade,
 	clientInfo_t	*ci;
 	int iconx, headx;
 	int x;
-	float		frac;
 
 	if ( score->client < 0 || score->client >= cgs.maxclients ) {
 		Com_Printf( "Bad score->client: %i\n", score->client );
@@ -371,8 +370,8 @@ Draw the normal in-game scoreboard
 =================
 */
 qboolean CG_DrawOldScoreboard( void ) {
-	int		x, x1, x2, y, w, w1, w2, i, n1, n2;
-	float	fade;
+	int		x, x1, x2, y, w, w1, i, n1, n2;
+	float	fade = 0.0;
 	float	*fadeColor;
 	float	color[4];
 	char	*s;
