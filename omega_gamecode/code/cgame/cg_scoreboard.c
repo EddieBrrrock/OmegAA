@@ -138,7 +138,7 @@ static void CG_DrawClientScore( int y, score_t *score, float *color, float fade,
 	}
 
 	// draw the face
-	if ( cent->currentState.eFlags & EF_DEAD ) {
+	if ( cent->currentState.eFlags & EF_DEAD || ( ci->isDead && cgs.gametype != GT_LMS ) ) {
 		CG_DrawPic( headx+2, y+2, BIGCHAR_HEIGHT+7, BIGCHAR_HEIGHT+7, cgs.media.skullShader );
 	} else {
 		VectorClear( headAngles );
