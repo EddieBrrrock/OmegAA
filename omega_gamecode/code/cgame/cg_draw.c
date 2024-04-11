@@ -1256,7 +1256,7 @@ Lots of stuff
 			break;
 		}
 		w = CG_DrawStrlen( st );
-		if ( cg.warmupCount < cg_elimination_warmup.integer ) {
+		if ( cg.warmupCount < cg_elimination_activewarmup.integer ) {
 			CG_DrawStringExt( 320 - w * cw/2, 70, st, colorWhite,
 					qfalse, qtrue, cw, (int)(cw * 1.5), 0 );
 		}

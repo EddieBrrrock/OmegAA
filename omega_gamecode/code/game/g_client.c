@@ -588,7 +588,12 @@ respawnRound
 void respawnRound( gentity_t *ent ) {
 	gentity_t	*tent;
 
-	CopyToBodyQue (ent);
+	//if(g_gametype.integer!=GT_ELIMINATION || !ent->client->isEliminated)
+	//{
+	//	ent->client->isEliminated  = qtrue;
+		//CopyToBodyQue (ent);
+	//}
+        
 
 	if(ent->client->ps.pm_type != PM_SPECTATOR && ent->client->ps.stats[STAT_HEALTH] > 0 && !g_survivorsRespawn.integer)
 		return;
