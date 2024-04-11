@@ -1196,6 +1196,7 @@ extern vmCvar_t g_rocketSpeed;
 extern vmCvar_t g_selfDamage;
 extern vmCvar_t g_slickGround;
 extern vmCvar_t g_startWhenReady;
+extern vmCvar_t g_survivorsRespawn;
 extern vmCvar_t g_teamPush;
 extern vmCvar_t g_teleportMissiles; //from ratmod
 extern vmCvar_t g_vulnerableRockets;

@@ -754,6 +754,7 @@ typedef struct {
         menulist_s			weaponarena;
         menuradiobutton_s	cheats;
         menulist_s			lmsMode;
+        menuradiobutton_s	respawn;
 	menulist_s			botSkill;
 
 	menutext_s			player0;
@@ -860,6 +861,7 @@ static void ServerOptions_Start( void ) {
         int             cheats;
         int             oneway;
         int             lmsMode;
+        int             respawn;
 	int		skill;
 	int		n;
         const char		*info;
@@ -878,6 +880,7 @@ static void ServerOptions_Start( void ) {
         oneway		 = s_serveroptions.oneway.curvalue;
         //Sago: For some reason you need to add 1 to curvalue to get the UI to show the right thing (fixed?)
         lmsMode          = s_serveroptions.lmsMode.curvalue; //+1;
+        respawn          = s_serveroptions.respawn.curvalue;
 	skill		 = s_serveroptions.botSkill.curvalue + 1;
 
 	//set maxclients
@@ -967,6 +970,7 @@ static void ServerOptions_Start( void ) {
         trap_Cvar_SetValue( "g_instantgib", instantgib );
         trap_Cvar_SetValue( "g_weaponArena", weaponarena );
         trap_Cvar_SetValue( "g_lms_mode", lmsMode);
+        trap_Cvar_SetValue( "g_survivorsRespawn", respawn);
         trap_Cvar_SetValue( "elimination_ctf_oneway", oneway );
 	trap_Cvar_Set("sv_hostname", s_serveroptions.hostname.field.buffer );
 
@@ -1438,6 +1442,7 @@ static void ServerOptions_SetMenuItems( void ) {
         s_serveroptions.instantgib.curvalue = Com_Clamp( 0, 1, trap_Cvar_VariableValue( "g_instantgib" ) );
         s_serveroptions.weaponarena.curvalue = Com_Clamp( 0, 13, trap_Cvar_VariableValue( "g_weaponArena" ) );
         s_serveroptions.lmsMode.curvalue = Com_Clamp( 0, 3, trap_Cvar_VariableValue("g_lms_mode") );
+        s_serveroptions.respawn.curvalue = Com_Clamp( 1, 1, trap_Cvar_VariableValue("g_survivorsRespawn") );
         s_serveroptions.oneway.curvalue = Com_Clamp( 0, 1, trap_Cvar_VariableValue( "elimination_ctf_oneway" ) );
 
 	// set the map pic
@@ -1647,6 +1652,16 @@ static void ServerOptions_MenuInit( qboolean multiplayer ) {
             
         }
 
+        if( s_serveroptions.gametype == GT_LMS || s_serveroptions.gametype == GT_ELIMINATION || s_serveroptions.gametype == GT_CTF_ELIMINATION ) {
+            y += BIGCHAR_HEIGHT+2;
+            s_serveroptions.respawn.generic.type			= MTYPE_RADIOBUTTON;
+            s_serveroptions.respawn.generic.flags			= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+            s_serveroptions.respawn.generic.name			= "Respawn Survivors:";
+            s_serveroptions.respawn.generic.x				=  OPTIONS_X;
+            s_serveroptions.respawn.generic.y				= y;
+            
+        }
+
 	if( s_serveroptions.multiplayer ) {
 		y += BIGCHAR_HEIGHT+2;
 		s_serveroptions.hostname.generic.type       = MTYPE_FIELD;
@@ -1778,6 +1793,9 @@ static void ServerOptions_MenuInit( qboolean multiplayer ) {
         }
         if( s_serveroptions.gametype == GT_CTF_ELIMINATION) {
             Menu_AddItem( &s_serveroptions.menu, &s_serveroptions.oneway );
+        }
+        if( s_serveroptions.gametype == GT_LMS || s_serveroptions.gametype == GT_ELIMINATION || s_serveroptions.gametype == GT_CTF_ELIMINATION) {
+            Menu_AddItem( &s_serveroptions.menu, &s_serveroptions.respawn );
         }
 	if( s_serveroptions.multiplayer ) {
 		Menu_AddItem( &s_serveroptions.menu, &s_serveroptions.hostname );

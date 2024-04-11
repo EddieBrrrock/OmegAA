@@ -72,6 +72,7 @@ List of the cvars/additions :
 - g_selfDamage
 - g_slikGround
 - g_startWhenReady
+- g_survivorsRespawn
 - g_teamPush
 - g_teleportMissiles (imported from [ratmod](https://github.com/rdntcntrl/ratoa_gamecode))
 - g_waterDamage

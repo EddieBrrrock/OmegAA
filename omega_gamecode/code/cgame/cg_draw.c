@@ -1188,7 +1188,6 @@ static float CG_DrawEliminationTimer( float y ) {
 	int			msec;
 	vec4_t			color;
 	const char	*st;
-	float scale __attribute__ ((unused));
 	int cw;
 	int rst;
 
@@ -1242,35 +1241,25 @@ Lots of stuff
 				break;
 			}
 		} 
-		scale = 0.45f;
 		switch ( cg.warmupCount ) {
 		case 0:
 			cw = 22;
-			scale = 0.54f;
 			break;
 		case 1:
 			cw = 20;
-			scale = 0.51f;
 			break;
 		case 2:
 			cw = 18;
-			scale = 0.48f;
 			break;
 		default:
 			cw = 16;
-			scale = 0.45f;
 			break;
 		}
-
-	#ifdef MISSIONPACK
-			//w = CG_Text_Width(s, scale, 0);
-			//CG_Text_Paint(320 - w / 2, 125, scale, colorWhite, st, 0, 0, ITEM_TEXTSTYLE_SHADOWEDMORE);
-	#else
-                
-                    w = CG_DrawStrlen( st );
-                    CG_DrawStringExt( 320 - w * cw/2, 70, st, colorWhite,
-				qfalse, qtrue, cw, (int)(cw * 1.5), 0 );
-	#endif
+		w = CG_DrawStrlen( st );
+		if ( cg.warmupCount < cg_elimination_warmup.integer ) {
+			CG_DrawStringExt( 320 - w * cw/2, 70, st, colorWhite,
+					qfalse, qtrue, cw, (int)(cw * 1.5), 0 );
+		}
 	}
 /*
 Lots of stuff

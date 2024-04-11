@@ -484,7 +484,9 @@ void CopyToBodyQue( gentity_t *ent ) {
 	body->r.contents = CONTENTS_CORPSE;
 	body->r.ownerNum = ent->s.number;
 
-	body->nextthink = level.time + 5000;
+	if ( g_gametype.integer!=GT_ELIMINATION && g_gametype.integer!=GT_CTF_ELIMINATION && g_gametype.integer !=GT_LMS && !ent->client->isEliminated ) {
+		body->nextthink = level.time + 5000;
+	}
 	body->think = BodySink;
 
 	body->die = body_die;
@@ -586,15 +588,10 @@ respawnRound
 void respawnRound( gentity_t *ent ) {
 	gentity_t	*tent;
 
-	//if(g_gametype.integer!=GT_ELIMINATION || !ent->client->isEliminated)
-	//{
-	//	ent->client->isEliminated  = qtrue;
-		//CopyToBodyQue (ent);
-	//}
-        
+	CopyToBodyQue (ent);
 
-	//if(g_gametype.integer==GT_ELIMINATION && ent->client->ps.pm_type == PM_SPECTATOR && ent->client->ps.stats[STAT_HEALTH] > 0)
-	//	return;
+	if(ent->client->ps.pm_type != PM_SPECTATOR && ent->client->ps.stats[STAT_HEALTH] > 0 && !g_survivorsRespawn.integer)
+		return;
         if(ent->client->hook)
                 Weapon_HookFree(ent->client->hook);
 

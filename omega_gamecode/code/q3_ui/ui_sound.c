@@ -467,10 +467,10 @@ static void UI_SoundOptionsMenu_Init( void ) {
 	soundOptionsInfo.quality.curvalue = !trap_Cvar_VariableValue( "s_compression" );
 //	soundOptionsInfo.a3d.curvalue = (int)trap_Cvar_VariableValue( "s_usingA3D" );
 	soundOptionsInfo.openal.curvalue = (int)trap_Cvar_VariableValue( "s_useopenal" );
-	soundOptionsInfo.chatBeep.curvalue = (int)trap_Cvar_VariableValue( "cg_chatBeep" );
-	soundOptionsInfo.teamChatBeep.curvalue = (int)trap_Cvar_VariableValue( "cg_teamChatBeep" );
-	soundOptionsInfo.hitSound.curvalue = (int)trap_Cvar_VariableValue( "cg_hitsound" );
-	soundOptionsInfo.killSound.curvalue = (int)trap_Cvar_VariableValue( "cg_killsound" );
+	soundOptionsInfo.chatBeep.curvalue = Com_Clamp( 1, 1, trap_Cvar_VariableValue("cg_chatBeep") );
+	soundOptionsInfo.teamChatBeep.curvalue = Com_Clamp( 1, 1, trap_Cvar_VariableValue("cg_teamChatBeep") );
+	soundOptionsInfo.hitSound.curvalue = Com_Clamp( 1, 1, trap_Cvar_VariableValue("cg_hitsound") );
+	soundOptionsInfo.killSound.curvalue = Com_Clamp( 1, 1, trap_Cvar_VariableValue("cg_killsound") );
 
 	UI_SoundOptions_GetInitialSound();
 }

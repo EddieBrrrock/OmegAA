@@ -219,7 +219,6 @@ vmCvar_t        g_lightningDamage;
 vmCvar_t        g_machinegunDamage;
 vmCvar_t        g_machinegunTeamDamage;
 vmCvar_t        g_muteSpectators;
-vmCvar_t        g_omegaInitialized;
 vmCvar_t        g_plasmaBounce;
 vmCvar_t        g_railgunDamage;
 vmCvar_t        g_railgunFireRate;
@@ -230,6 +229,7 @@ vmCvar_t        g_rocketSpeed;
 vmCvar_t        g_selfDamage;
 vmCvar_t        g_slickGround;
 vmCvar_t        g_startWhenReady;
+vmCvar_t        g_survivorsRespawn;
 vmCvar_t        g_teamPush;
 vmCvar_t        g_teleportMissiles; //from ratmod
 vmCvar_t        g_vulnerableRockets;
@@ -359,7 +359,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_elimination_bfg, "elimination_bfg", "0", CVAR_ARCHIVE| CVAR_NORESTART, 0, qtrue },
         { &g_elimination_grapple, "elimination_grapple", "0", CVAR_ARCHIVE| CVAR_NORESTART, 0, qtrue },
 	{ &g_elimination_roundtime, "elimination_roundtime", "120", CVAR_SERVERINFO | CVAR_ARCHIVE | CVAR_NORESTART, 0, qtrue },
-	{ &g_elimination_warmup, "elimination_warmup", "7", CVAR_ARCHIVE | CVAR_NORESTART , 0, qtrue },
+	{ &g_elimination_warmup, "elimination_warmup", "7", CVAR_ARCHIVE | CVAR_NORESTART | CVAR_SYSTEMINFO, 0, qtrue },
 	{ &g_elimination_activewarmup, "elimination_activewarmup", "5", CVAR_ARCHIVE | CVAR_NORESTART , 0, qtrue },
         { &g_elimination_allgametypes, "g_elimination", "0", CVAR_LATCH | CVAR_NORESTART, 0, qfalse },
 
@@ -458,7 +458,6 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_machinegunDamage, "g_machinegunDamage", "6", 0, 0, qtrue },
 	{ &g_machinegunTeamDamage, "g_machinegunTeamDamage", "7", 0, 0, qtrue },
 	{ &g_muteSpectators, "g_muteSpectators", "0", CVAR_ARCHIVE, 0, qtrue },
-	{ &g_omegaInitialized, "g_omegaInitialized", "0", CVAR_SYSTEMINFO | CVAR_ARCHIVE, 0, qtrue },
 	{ &g_plasmaBounce, "g_plasmaBounce", "0", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_railgunDamage, "g_railgunDamage", "80", 0, 0, qtrue },
 	{ &g_railgunFireRate, "g_railgunFireRate", "1500", 0, 0, qtrue },
@@ -469,6 +468,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_selfDamage, "g_selfDamage", "1", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_slickGround, "g_slickGround", "0", CVAR_ARCHIVE, 0, qtrue },
         { &g_startWhenReady, "g_startWhenReady", "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
+        { &g_survivorsRespawn, "g_survivorsRespawn", "1", CVAR_ARCHIVE | CVAR_SERVERINFO, 0, qfalse },
 	{ &g_teamPush, "g_teamPush", "0", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_teleportMissiles, "g_teleportMissiles", "1", CVAR_ARCHIVE, 0, qtrue },
 	{ &g_vulnerableRockets, "g_vulnerableRockets", "0", CVAR_ARCHIVE, 0, qtrue },
@@ -665,26 +665,6 @@ void G_RegisterCvars( void ) {
 	level.warmupModificationCount = g_warmup.modificationCount;
 }
 
-/*																																			
-===================
-G_Initialize
-===================
- */
-static void G_Initialize( void )  {
-	int			i;
-	cvarTable_t	*cv;
-
-	if ( !g_omegaInitialized.integer ) {
-		for ( i = 0, cv = gameCvarTable ; i < gameCvarTableSize ; i++, cv++ ) {
-			if ( cv->vmCvar ) {
-				trap_Cvar_Set( cv->cvarName, cv->defaultString );
-				trap_Cvar_Update( cv->vmCvar );
-			}
-		}
-		trap_Cvar_Set( "g_omegaInitialized", "1" );
-	}
-}
-
 /*
 =================
 G_UpdateCvars
@@ -794,8 +774,6 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	srand( randomSeed );
 
 	G_RegisterCvars();
-
-	G_Initialize();
 
         G_UpdateTimestamp();
         

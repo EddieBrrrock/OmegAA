@@ -286,6 +286,7 @@ vmCvar_t        cg_drawEnemyThroughWalls;
 vmCvar_t        cg_drawFriendThroughWalls;
 vmCvar_t        cg_drawItemPickup;
 vmCvar_t        cg_drawTeamBackground;
+vmCvar_t        cg_elimination_warmup;
 vmCvar_t        cg_enemyColor;
 vmCvar_t        cg_enemyModel;
 vmCvar_t        cg_enemySounds;
@@ -512,13 +513,14 @@ static cvarTable_t cvarTable[] = { // bk001129
 	{ &cg_drawFriendThroughWalls, "cg_friendThroughWalls", "1", CVAR_ARCHIVE },
 	{ &cg_drawItemPickup, "cg_drawItemPickup", "1", CVAR_ARCHIVE},
 	{ &cg_drawTeamBackground, "cg_drawTeamBackground", "1", CVAR_ARCHIVE },
+	{ &cg_elimination_warmup, "elimination_warmup", "7", CVAR_SYSTEMINFO },
 	{ &cg_enemyColor, "cg_enemyColor", "", CVAR_ARCHIVE },
 	{ &cg_enemyModel, "cg_enemyModel", "", CVAR_ARCHIVE },
 	{ &cg_enemySounds, "cg_enemySounds", "", CVAR_ARCHIVE },
 	{ &cg_forceTeamSkins, "cg_forceTeamSkins", "1", CVAR_ARCHIVE },
 	{ &cg_killsound, "cg_killsound", "1", CVAR_ARCHIVE },
 	{ &cg_omegaFlags, "cg_omegaFlags", "1", CVAR_ARCHIVE | CVAR_LATCH },
-	{ &cg_omegaInitialized, "g_omegaInitialized", "0", CVAR_SYSTEMINFO },
+	{ &cg_omegaInitialized, "cg_omegaInitialized", "0", CVAR_ARCHIVE },
 	{ &cg_screenshake, "cg_screenshake", "0", CVAR_ARCHIVE },
 	{ &cg_selfSounds, "cg_selfSounds", "", CVAR_ARCHIVE },
 	{ &cg_showSpawns, "cg_showSpawns", "1", CVAR_ARCHIVE },

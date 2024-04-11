@@ -31,7 +31,6 @@ OMEGA_PK3 = z_omega-v3.2.9.pk3
 TIMESTAMP = @$(shell cd $(GAMECODE_DIR) && git show -s --format=%ct)
 
 release: qvm $(OUTPUT_DIR) 
-	find . -name ".DS_Store" -print -delete
 	rm -rf $(PK3_DIR)
 	mkdir $(PK3_DIR)
 	cp -r $(ASSETS_DIR)/assets/* $(PK3_DIR)/
@@ -44,6 +43,7 @@ release: qvm $(OUTPUT_DIR)
 		$(TIMESTAMP) ../$(OMEGA_PK3) .
 
 qvm:
+	find . -name ".DS_Store" -print -delete
 	$(MAKE) -C $(GAMECODE_DIR) \
 		BUILD_GAME_SO=0 BUILD_GAME_QVM=1
 
