@@ -1156,6 +1156,7 @@ typedef struct {
 	// parsed from serverinfo
 	gametype_t		gametype;
 	int				dmflags;
+	int				itemflags;
         int                             videoflags;
         int				elimflags;
 	int				teamflags;

@@ -728,6 +728,14 @@ qboolean	BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const play
 #define DF_NO_SELF_DAMAGE               1024
 #define DF_PLAYER_OVERLAY               2048
 
+// g_itemflags->integer flags
+#define	IF_AMMO				8
+#define IF_ARMOR			16
+#define	IF_HEALTH			32
+#define IF_HOLDABLE		        64
+#define IF_POWERUPS		        128
+#define IF_WEAPONS			256
+
 //g_videoflags->integer
 #define VF_LOCK_CVARS_BASIC             1
 #define VF_LOCK_CVARS_EXTENDED          2
