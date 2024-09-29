@@ -2157,6 +2157,15 @@ static void CG_DrawPersistantPowerup( void ) {
 
 /*
 ===================
+CG_RewardTime
+===================
+*/
+int CG_RewardTime( int idx ) {
+	return REWARD_TIME + cg.rewardSoundDelay[idx] + 200;
+}
+
+/*
+===================
 CG_DrawReward
 ===================
 */
@@ -2178,7 +2187,7 @@ static void CG_DrawReward( void ) {
 		if (cg.rewardTime[i] == -1) {
 			cg.rewardTime[i] = cg.time;
 		}
-		if (cg.rewardTime[i] != 0 && cg.rewardTime[i] + REWARD_TIME + cg.rewardSoundDelay[i] + 200 > cg.time) {
+		if (cg.rewardTime[i] != 0 && cg.rewardTime[i] + CG_RewardTime(i) > cg.time) {
 			numMedals++;
 			if (skip) {
 				cg.rewardTime[i-skip] = cg.rewardTime[i];
@@ -2195,7 +2204,7 @@ static void CG_DrawReward( void ) {
 	y = 56;
 	x = 320 - numMedals * ICON_SIZE/2;
 	for (i = 0; i < numMedals ; i++) {
-		color = CG_FadeColor( cg.rewardTime[i], REWARD_TIME + cg.rewardSoundDelay[i] + 200 );
+		color = CG_FadeColor( cg.rewardTime[i], CG_RewardTime(i) );
 		trap_R_SetColor( color );
 		CG_DrawPic( x+2, y, ICON_SIZE-4, ICON_SIZE-4, cg.rewardShader[i] );
 		Com_sprintf(buf, sizeof(buf), "%d", cg.rewardCount[i]);

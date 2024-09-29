@@ -1019,6 +1019,9 @@ void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demo
 	// add buffered sounds
 	CG_PlayBufferedSounds();
 
+	// add buffered reward sounds
+	CG_PlayBufferedRewardSounds();
+
 	// play buffered voice chats
 	CG_PlayBufferedVoiceChats();
 

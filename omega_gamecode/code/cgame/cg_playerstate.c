@@ -288,7 +288,7 @@ static void pushReward(sfxHandle_t sfx, qhandle_t shader, int rewardCount) {
 		if (cg.rewardShader[i] == shader 
 				&& (cg.rewardTime[i] == -1 
 					|| (cg.rewardTime[i] > 0 
-						&& cg.rewardTime[i] + REWARD_TIME + cg.rewardSoundDelay[i] + 200 > cg.time)
+						&& cg.rewardTime[i] + CG_RewardTime(i) > cg.time)
 					)
 				) {
 			found = qtrue;
@@ -297,7 +297,7 @@ static void pushReward(sfxHandle_t sfx, qhandle_t shader, int rewardCount) {
 	}
 	if (!found) {
 		for (i = 0; i < MAX_REWARDSTACK; ++i) {
-			if (cg.rewardTime[i] == -1 || (cg.rewardTime[i] > 0 && cg.rewardTime[i] + REWARD_TIME + cg.rewardSoundDelay[i] + 200 > cg.time)) {
+			if (cg.rewardTime[i] == -1 || (cg.rewardTime[i] > 0 && cg.rewardTime[i] + CG_RewardTime(i) > cg.time)) {
 				continue;
 			}
 			found = qtrue;
