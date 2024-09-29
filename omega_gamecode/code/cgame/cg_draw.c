@@ -2174,7 +2174,11 @@ static void CG_DrawReward( void ) {
 	int		i;
 	int 		numMedals;
 	int 		skip;
-	float	x, xx, y;
+	float	x, xx, y, yy;
+	float	charWidth, charHeight;
+	float	iconSize;
+	float	lineLength = 0.0;
+	float	scale;
 	char	buf[32];
 
 	if ( !cg_drawRewards.integer ) {
@@ -2189,6 +2193,7 @@ static void CG_DrawReward( void ) {
 		}
 		if (cg.rewardTime[i] != 0 && cg.rewardTime[i] + CG_RewardTime(i) > cg.time) {
 			numMedals++;
+			lineLength += ICON_SIZE * CG_FadeScale( cg.rewardTime[i], CG_RewardTime(i) );
 			if (skip) {
 				cg.rewardTime[i-skip] = cg.rewardTime[i];
 				cg.rewardShader[i-skip] = cg.rewardShader[i];
@@ -2202,15 +2207,22 @@ static void CG_DrawReward( void ) {
 	}
 
 	y = 56;
-	x = 320 - numMedals * ICON_SIZE/2;
+	x = 320 - lineLength/2;
 	for (i = 0; i < numMedals ; i++) {
 		color = CG_FadeColor( cg.rewardTime[i], CG_RewardTime(i) );
+		scale = CG_FadeScale( cg.rewardTime[i], CG_RewardTime(i) );
+		iconSize = ICON_SIZE * scale;
 		trap_R_SetColor( color );
-		CG_DrawPic( x+2, y, ICON_SIZE-4, ICON_SIZE-4, cg.rewardShader[i] );
+
+		yy = y + (ICON_SIZE - iconSize)/2.0;
+		CG_DrawPic( x+2, yy, iconSize-4, iconSize-4, cg.rewardShader[i] );
+		charWidth  = SMALLCHAR_WIDTH * scale;
+		charHeight = SMALLCHAR_HEIGHT * scale;
+
 		Com_sprintf(buf, sizeof(buf), "%d", cg.rewardCount[i]);
-		xx = x + (ICON_SIZE - SMALLCHAR_WIDTH * CG_DrawStrlen( buf )) / 2;
-		CG_DrawStringExt( xx, y+ICON_SIZE, buf, color, qfalse, qtrue, SMALLCHAR_WIDTH, SMALLCHAR_HEIGHT, 0 );
-		x += ICON_SIZE;
+		xx = x + (iconSize - charWidth * CG_DrawStrlen( buf )) / 2;
+		CG_DrawStringExt( xx, yy+ iconSize, buf, color, qfalse, qtrue, charWidth, charHeight, 0 );
+		x += iconSize;
 	}
 	trap_R_SetColor( NULL );
 }

@@ -1584,6 +1584,7 @@ void CG_DrawTinyString( int x, int y, const char *s, float alpha );
 int CG_DrawStrlen( const char *str );
 
 float	*CG_FadeColor( int startMsec, int totalMsec );
+float	CG_FadeScale( int startMsec, int totalMsec );
 float *CG_TeamColor( int team );
 void CG_TileClear( void );
 void CG_ColorForHealth( vec4_t hcolor );
