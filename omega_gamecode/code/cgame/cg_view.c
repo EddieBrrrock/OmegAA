@@ -796,6 +796,51 @@ static void CG_PlayBufferedSounds( void ) {
 
 /*
 =====================
+CG_AddBufferedRewardSound
+=====================
+*/
+int CG_AddBufferedRewardSound( sfxHandle_t sfx ) {
+	int delay = 0;
+	int delayFactor = 0;
+
+	if ( !sfx )
+		return delay;
+	cg.rewardSoundBuffer[cg.rewardSoundBufferIn] = sfx;
+	cg.rewardSoundBufferIn = (cg.rewardSoundBufferIn + 1) % MAX_REWARDSTACK;
+	if (cg.rewardSoundBufferIn == cg.rewardSoundBufferOut) {
+		cg.rewardSoundBufferOut = (cg.rewardSoundBufferOut + 1) % MAX_REWARDSTACK;
+	}
+	if (cg.rewardSoundBufferOut < cg.rewardSoundBufferIn) {
+		delayFactor =  cg.rewardSoundBufferIn - cg.rewardSoundBufferOut - 1;
+	} else {
+		delayFactor = cg.rewardSoundBufferIn + MAX_REWARDSTACK - cg.rewardSoundBufferOut - 1;
+	}
+	if (cg.rewardSoundTime > cg.time) {
+		delay += cg.rewardSoundTime - cg.time;
+	}
+	delay += delayFactor * REWARD_SOUNDDELAY;
+	return delay;
+	
+}
+
+/*
+=====================
+CG_PlayBufferedRewardSounds
+=====================
+*/
+static void CG_PlayBufferedRewardSounds( void ) {
+	if ( cg.rewardSoundTime < cg.time ) {
+		if (cg.rewardSoundBufferOut != cg.rewardSoundBufferIn && cg.rewardSoundBuffer[cg.rewardSoundBufferOut]) {
+			trap_S_StartLocalSound(cg.rewardSoundBuffer[cg.rewardSoundBufferOut], CHAN_ANNOUNCER);
+			cg.rewardSoundBuffer[cg.rewardSoundBufferOut] = 0;
+			cg.rewardSoundBufferOut = (cg.rewardSoundBufferOut + 1) % MAX_REWARDSTACK;
+			cg.rewardSoundTime = cg.time + REWARD_SOUNDDELAY;
+		}
+	}
+}
+
+/*
+=====================
 CG_AddSpawnpoints
 =====================
 */

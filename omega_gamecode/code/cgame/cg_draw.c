@@ -2163,42 +2163,46 @@ CG_DrawReward
 static void CG_DrawReward( void ) { 
 	float	*color;
 	int		i;
-	float	x, y;
+	int 		numMedals;
+	int 		skip;
+	float	x, xx, y;
 	char	buf[32];
 
 	if ( !cg_drawRewards.integer ) {
 		return;
 	}
 
-	color = CG_FadeColor( cg.rewardTime, REWARD_TIME );
-	if ( !color ) {
-		if (cg.rewardStack > 0) {
-			for(i = 0; i < cg.rewardStack; i++) {
-				cg.rewardSound[i] = cg.rewardSound[i+1];
-				
-				cg.rewardShader[i] = cg.rewardShader[i+1];
-				cg.rewardCount[i] = cg.rewardCount[i+1];
+	skip = 0;
+	numMedals = 0;
+	for (i = 0; i < MAX_REWARDSTACK; ++i) {
+		if (cg.rewardTime[i] == -1) {
+			cg.rewardTime[i] = cg.time;
+		}
+		if (cg.rewardTime[i] != 0 && cg.rewardTime[i] + REWARD_TIME + cg.rewardSoundDelay[i] + 200 > cg.time) {
+			numMedals++;
+			if (skip) {
+				cg.rewardTime[i-skip] = cg.rewardTime[i];
+				cg.rewardShader[i-skip] = cg.rewardShader[i];
+				cg.rewardCount[i-skip] = cg.rewardCount[i];
+				cg.rewardSoundDelay[i-skip] = cg.rewardSoundDelay[i];
+				cg. rewardTime[i] = 0;
 			}
-			cg.rewardTime = cg.time;
-			cg.rewardStack--;
-			color = CG_FadeColor( cg.rewardTime, REWARD_TIME );
-			
-			trap_S_StartLocalSound(cg.rewardSound[0], CHAN_ANNOUNCER);  
-
 		} else {
-			return;
+			skip++;
 		}
 	}
 
-	trap_R_SetColor( color );
-
-	y = 66;
-	x = 320 - ICON_SIZE/2;
-	CG_DrawPic( x, y, ICON_SIZE-4, ICON_SIZE-4, cg.rewardShader[0] );
-	Com_sprintf(buf, sizeof(buf), "%d", cg.rewardCount[0]);
-	x = ( SCREEN_WIDTH - SMALLCHAR_WIDTH * CG_DrawStrlen( buf ) - 4 ) / 2;
-	CG_DrawStringExt( x, y+ICON_SIZE, buf, color, qfalse, qtrue,
-							SMALLCHAR_WIDTH, SMALLCHAR_HEIGHT, 0 );
+	y = 56;
+	x = 320 - numMedals * ICON_SIZE/2;
+	for (i = 0; i < numMedals ; i++) {
+		color = CG_FadeColor( cg.rewardTime[i], REWARD_TIME + cg.rewardSoundDelay[i] + 200 );
+		trap_R_SetColor( color );
+		CG_DrawPic( x+2, y, ICON_SIZE-4, ICON_SIZE-4, cg.rewardShader[i] );
+		Com_sprintf(buf, sizeof(buf), "%d", cg.rewardCount[i]);
+		xx = x + (ICON_SIZE - SMALLCHAR_WIDTH * CG_DrawStrlen( buf )) / 2;
+		CG_DrawStringExt( xx, y+ICON_SIZE, buf, color, qfalse, qtrue, SMALLCHAR_WIDTH, SMALLCHAR_HEIGHT, 0 );
+		x += ICON_SIZE;
+	}
 	trap_R_SetColor( NULL );
 }
 

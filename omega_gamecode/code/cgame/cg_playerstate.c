@@ -281,12 +281,36 @@ pushReward
 ==================
 */
 static void pushReward(sfxHandle_t sfx, qhandle_t shader, int rewardCount) {
-	if (cg.rewardStack < (MAX_REWARDSTACK-1)) {
-		cg.rewardStack++;
-		cg.rewardSound[cg.rewardStack] = sfx;
-		cg.rewardShader[cg.rewardStack] = shader;
-		cg.rewardCount[cg.rewardStack] = rewardCount;
+	int i = 0;
+	qboolean found = qfalse;
+
+	for (i = 0; i < MAX_REWARDSTACK; ++i) {
+		if (cg.rewardShader[i] == shader 
+				&& (cg.rewardTime[i] == -1 
+					|| (cg.rewardTime[i] > 0 
+						&& cg.rewardTime[i] + REWARD_TIME + cg.rewardSoundDelay[i] + 200 > cg.time)
+					)
+				) {
+			found = qtrue;
+			break;
+		}
 	}
+	if (!found) {
+		for (i = 0; i < MAX_REWARDSTACK; ++i) {
+			if (cg.rewardTime[i] == -1 || (cg.rewardTime[i] > 0 && cg.rewardTime[i] + REWARD_TIME + cg.rewardSoundDelay[i] + 200 > cg.time)) {
+				continue;
+			}
+			found = qtrue;
+			break;
+		}
+	}
+	if (!found) {
+		return;
+	}
+	cg.rewardTime[i] = -1;
+	cg.rewardShader[i] = shader;
+	cg.rewardCount[i] = rewardCount;
+	cg.rewardSoundDelay[i] = CG_AddBufferedRewardSound( sfx );
 }
 
         
