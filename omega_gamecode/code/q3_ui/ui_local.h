@@ -810,6 +810,7 @@ void			trap_LAN_GetPingInfo( int n, char *buf, int buflen );
 int				trap_MemoryRemaining( void );
 void			trap_GetCDKey( char *buf, int buflen );
 void			trap_SetCDKey( char *buf );
+void			trap_S_StartBackgroundTrack( const char *intro, const char *loop);
 
 qboolean               trap_VerifyCDKey( const char *key, const char *chksum); // bk001208 - RC4
 
