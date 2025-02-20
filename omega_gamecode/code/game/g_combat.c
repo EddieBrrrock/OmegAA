@@ -571,6 +571,10 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	self->client->ps.persistant[PERS_KILLED]++;
 
+	self->client->pers.nemesis = killer;
+	self->client->pers.revenged = qfalse;
+	self->client->pers.lastDeathTime = level.time;
+
 	if (attacker && attacker->client) {
 		attacker->client->lastkilled_client = self->s.number;
 
@@ -593,7 +597,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
                                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 0, attacker->client->pers.netname, "GAUNTLET" );
 
 				// add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				attacker->client->ps.eFlags |= EF_AWARD_GAUNTLET;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -611,7 +615,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
                                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 0, attacker->client->pers.netname, "HEADSHOT" );
 
 				// add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				self->client->ps.eFlags |= EF_BODY_NOHEAD;
 				attacker->client->ps.eFlags |= EF_AWARD_HEADSHOT;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
@@ -754,7 +758,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
                                 if(!level.hadBots) //There has not been any bots
                                     ChallengeMessage(attacker,AWARD_EXCELLENT);
 				// add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				attacker->client->ps.eFlags |= EF_AWARD_EXCELLENT;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 			} else { 
@@ -768,6 +772,29 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		if(g_gametype.integer!=GT_LMS && !((g_gametype.integer==GT_ELIMINATION || g_gametype.integer==GT_CTF_ELIMINATION) && level.time < level.roundStartTime))
                     if(self->client->ps.persistant[PERS_SCORE]>0 || level.numNonSpectatorClients<3) //Cannot get negative scores by suicide
 			AddScore( self, self->r.currentOrigin, -1 );
+	}
+
+	if (attacker->client->pers.lastDeathTime > 0 
+		&& attacker->client->pers.nemesis == self->s.number
+		&& attacker->client->respawnTime > attacker->client->pers.lastDeathTime
+		&& attacker->client->respawnTime < level.time
+		&& attacker->client->respawnTime + 5 * 1000 > level.time
+		// revenge kill has to be the first kill after respawn 
+		&& attacker->client->lastkilled_client == -1
+		&& !attacker->client->pers.revenged
+		) {
+		// Attack gets a challenge complete:
+		attacker->client->pers.revenged = qtrue;
+		if(!(attacker->r.svFlags & SVF_BOT) && !(self->r.svFlags & SVF_BOT))
+			ChallengeMessage(attacker,AWARD_REVENGE);
+
+		attacker->client->ps.persistant[PERS_REVENGE_COUNT]++;
+                G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 0, attacker->client->pers.netname, "HEADSHOT" );
+
+		// add the sprite over the player's head
+		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
+		attacker->client->ps.eFlags |= EF_AWARD_REVENGE;
+		attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 	}
 
 	// Add team bonuses

@@ -313,6 +313,11 @@ typedef struct {
 //Used To Track Name Changes
     int         nameChangeTime;
     int         nameChanges;
+
+// Revenge award from ratmod
+    int		nemesis;
+    qboolean	revenged;
+    int		lastDeathTime;
     
 } clientPersistant_t;
 

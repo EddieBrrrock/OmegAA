@@ -374,6 +374,11 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 		reward = qtrue;
 		//Com_Printf("headshot\n");
 	}
+	if (ps->persistant[PERS_REVENGE_COUNT] != ops->persistant[PERS_REVENGE_COUNT]) {
+		pushReward(cgs.media.revengeSound, cgs.media.medalRevenge, ps->persistant[PERS_REVENGE_COUNT]);
+		reward = qtrue;
+		//Com_Printf("revenge\n");
+	}
 	if (ps->persistant[PERS_IMPRESSIVE_COUNT] != ops->persistant[PERS_IMPRESSIVE_COUNT]) {
 #ifdef MISSIONPACK
 		if (ps->persistant[PERS_IMPRESSIVE_COUNT] == 1) {

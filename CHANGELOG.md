@@ -110,3 +110,9 @@
 - `g_bluerespawtime` and `g_redrespawntime` for team specific respawn time
 - new reward system imported from ratmod
 - `g_elimination_items` if set to 1, enable items pickup in elimination modes
+
+## 3.3.2
+- ui updates
+- desktop resolution setting fix
+- save favorite server button
+- menu music

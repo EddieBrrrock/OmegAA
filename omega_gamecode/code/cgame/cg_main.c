@@ -968,6 +968,7 @@ static void CG_RegisterSounds( void ) {
 	cgs.media.assistSound = trap_S_RegisterSound( "sound/feedback/assist.wav", qtrue );
 	cgs.media.defendSound = trap_S_RegisterSound( "sound/feedback/defense.wav", qtrue );
 	cgs.media.headshotSound = trap_S_RegisterSound( "sound/feedback/accuracy.wav", qtrue );
+	cgs.media.revengeSound = trap_S_RegisterSound( "sound/feedback/accuracy.wav", qtrue );
 #ifdef MISSIONPACK
 	cgs.media.firstImpressiveSound = trap_S_RegisterSound( "sound/feedback/first_impressive.wav", qtrue );
 	cgs.media.firstExcellentSound = trap_S_RegisterSound( "sound/feedback/first_excellent.wav", qtrue );
@@ -1362,6 +1363,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.medalAssist = trap_R_RegisterShaderNoMip( "medal_assist" );
 	cgs.media.medalCapture = trap_R_RegisterShaderNoMip( "medal_capture" );
 	cgs.media.medalHeadshot = trap_R_RegisterShaderNoMip( "medal_headshot" );
+	cgs.media.medalRevenge = trap_R_RegisterShaderNoMip( "medal_headshot" );
 
 	// LEILEI SHADERS
 	cgs.media.lsmkShader1 = trap_R_RegisterShader("leismoke1" );

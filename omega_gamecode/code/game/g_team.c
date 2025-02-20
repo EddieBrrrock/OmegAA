@@ -458,7 +458,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
                     ChallengeMessage(attacker,AWARD_DEFENCE);
 		team = attacker->client->sess.sessionTeam;
 		// add the sprite over the player's head
-		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 		attacker->client->ps.eFlags |= EF_AWARD_DEFEND;
 		attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -479,7 +479,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 3, attacker->client->pers.netname, "DEFENCE" );
 		team = attacker->client->sess.sessionTeam;
 		// add the sprite over the player's head
-		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 		attacker->client->ps.eFlags |= EF_AWARD_DEFEND;
 		attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -512,7 +512,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
                                 if(!level.hadBots)
                                     ChallengeMessage(attacker,AWARD_DEFENCE);
                                 // add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				attacker->client->ps.eFlags |= EF_AWARD_DEFEND;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -548,7 +548,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
                                     ChallengeMessage(attacker,AWARD_DEFENCE);
                                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 3, attacker->client->pers.netname, "DEFENCE" );
 				// add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				attacker->client->ps.eFlags |= EF_AWARD_DEFEND;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -635,7 +635,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
                                     ChallengeMessage(attacker,AWARD_DEFENCE);
                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 3, attacker->client->pers.netname, "DEFENCE" );
 		// add the sprite over the player's head
-		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+		attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 		attacker->client->ps.eFlags |= EF_AWARD_DEFEND;
 		attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -659,7 +659,7 @@ void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker
                                     ChallengeMessage(attacker,AWARD_DEFENCE);
                         G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", attacker->client->ps.clientNum, 3, attacker->client->pers.netname, "DEFENCE" );
 			// add the sprite over the player's head
-			attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+			attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 			attacker->client->ps.eFlags |= EF_AWARD_DEFEND;
 			attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -1257,7 +1257,7 @@ int Team_TouchOurFlag( gentity_t *ent, gentity_t *other, int team ) {
 
 	other->client->pers.teamState.captures++;
 	// add the sprite over the player's head
-	other->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+	other->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 	other->client->ps.eFlags |= EF_AWARD_CAP;
 	other->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 	other->client->ps.persistant[PERS_CAPTURES]++;
@@ -1293,7 +1293,7 @@ int Team_TouchOurFlag( gentity_t *ent, gentity_t *other, int team ) {
                                     ChallengeMessage(player,AWARD_ASSIST);
                                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", player->client->ps.clientNum, 5, player->client->pers.netname, "ASSIST" );
 				// add the sprite over the player's head
-				player->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				player->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				player->client->ps.eFlags |= EF_AWARD_ASSIST;
 				player->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -1307,7 +1307,7 @@ int Team_TouchOurFlag( gentity_t *ent, gentity_t *other, int team ) {
                                     ChallengeMessage(player,AWARD_ASSIST);
                                 G_LogPrintf( "Award: %i %i: %s gained the %s award!\n", player->client->ps.clientNum, 5, player->client->pers.netname, "ASSIST" );
 				// add the sprite over the player's head
-				player->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+				player->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 				player->client->ps.eFlags |= EF_AWARD_ASSIST;
 				player->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 			}
@@ -1900,7 +1900,7 @@ static void ObeliskDie( gentity_t *self, gentity_t *inflictor, gentity_t *attack
 	AddScore(attacker, self->r.currentOrigin, CTF_CAPTURE_BONUS);
 
 	// add the sprite over the player's head
-	attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+	attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 	attacker->client->ps.eFlags |= EF_AWARD_CAP;
 	attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 	attacker->client->ps.persistant[PERS_CAPTURES]++;
@@ -1946,7 +1946,7 @@ static void ObeliskTouch( gentity_t *self, gentity_t *other, trace_t *trace ) {
 	AddScore(other, self->r.currentOrigin, CTF_CAPTURE_BONUS*tokens);
 
 	// add the sprite over the player's head
-	other->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT );
+	other->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_HEADSHOT | EF_AWARD_REVENGE );
 	other->client->ps.eFlags |= EF_AWARD_CAP;
 	other->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 	other->client->ps.persistant[PERS_CAPTURES] += tokens;

@@ -578,6 +578,10 @@ void Cmd_Give_f (gentity_t *ent)
 		ent->client->ps.persistant[PERS_HEADSHOT_COUNT]++;
 		return;
 	}
+	if (Q_strequal(name, "revenge")) {
+		ent->client->ps.persistant[PERS_REVENGE_COUNT]++;
+		return;
+	}
 
 	// spawn a specific item right on the player
 	if ( !give_all ) {

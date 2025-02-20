@@ -937,6 +937,7 @@ typedef struct {
 	qhandle_t	medalAssist;
 	qhandle_t	medalCapture;
 	qhandle_t	medalHeadshot;
+	qhandle_t	medalRevenge;
 
 	// frag message icon shaders
 	qhandle_t	bfgShader;
@@ -1043,6 +1044,7 @@ typedef struct {
 	sfxHandle_t assistSound;
 	sfxHandle_t defendSound;
 	sfxHandle_t headshotSound;
+	sfxHandle_t revengeSound;
 	sfxHandle_t firstImpressiveSound;
 	sfxHandle_t firstExcellentSound;
 	sfxHandle_t firstHumiliationSound;
